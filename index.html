@@ -25,7 +25,8 @@
           result = request.responseText;
           //processing into json object
           joke = JSON.parse(result);
-          displayResult = "<b>Chuck Norris Joke of the Day: </b>" +
+          displayResult = "<b>Chuck Norris Joke of the Day </b>" +
+                          "(WARNING! some are NSFW or very vulgar!): <br>" +
                           joke["value"] +
                           "<br> <br> <img src=" + joke["icon_url"] +
                           ">";
