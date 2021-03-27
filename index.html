@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Chuck Norris API</title>
+
+  <style media="screen">
+    .question {
+      font-weight: bold;
+    }
+  </style>
+
+  <script>
+    //make instance of request object
+    function getJoke() {
+      request = new XMLHttpRequest();
+
+      //set URL for AJAX request to be JSON file
+      request.open("GET", "https://api.chucknorris.io/jokes/random", true);
+
+      //event handler & getting data
+      request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+          result = request.responseText;
+          //processing into json object
+          joke = JSON.parse(result);
+          displayResult = "<b>Chuck Norris Joke of the Day: </b>" +
+                          joke["value"] +
+                          "<br> <br> <img src=" + joke["icon_url"] +
+                          ">";
+
+          document.getElementById("data").innerHTML = displayResult;
+
+        } else if (request.readyState == 4 && request.status != 200) {
+          document.getElementById("data").innerHTML =
+            "Something is wrong!";
+        } else if (request.readyState == 3) {
+          document.getElementById("data").innerHTML =
+            "Data is still loading! Too soon! ";
+        } else {
+          document.getElementById("data").innerHTML = "Request failed";
+        }
+      }
+
+      request.send();
+
+    request2 = new XMLHttpRequest();
+
+    //set URL for AJAX request to be JSON file
+    request2.open("GET", "https://api.chucknorris.io/jokes/categories", true);
+
+    //event handler & getting data
+    request2.onreadystatechange = function() {
+      if (request2.readyState == 4 && request2.status == 200) {
+        result = request2.responseText;
+        //processing into json object
+        //changes into array
+        norrisCat = JSON.parse(result);
+
+        catDisplay = "<b>Behold our list of joke categories</b>" +
+                     " (Updated through API): <br> <ol>";
+
+        for (i = 0; i < norrisCat.length; i++) {
+            catDisplay += "<li>" + (norrisCat[i]).toUpperCase() + "</li>";
+        }
+
+        catDisplay += "</ol>";
+
+        document.getElementById("categories").innerHTML = catDisplay;
+
+      } else if (request2.readyState == 4 && request2.status != 200) {
+        document.getElementById("data").innerHTML =
+          "Something is wrong!";
+      } else if (request2.readyState == 3) {
+        document.getElementById("data").innerHTML =
+          "Data is still loading! Too soon! ";
+      } else {
+        document.getElementById("data").innerHTML = "Request failed";
+      }
+    }
+
+    request2.send();
+  }
+  </script>
+
+</head>
+
+<body onload="getJoke()">
+  <h1>API Assignment!</h1>
+  <div class="apiBox" id="data">
+    Your joke is loading...
+  </div>
+
+  <br><br>
+
+  <div class="apiBox" id="categories">
+    Categories loading...
+  </div>
+
+  <h2>API Information:</h2>
+  <div style="width: 50%;">
+
+
+  <p class="question">Describe the API you selected and what it does:</p>
+  <p>The API I selected is called the "Chuck Norris Jokes API". This
+     API returns a random Chuck Norris joke in JSON format from its
+     database of Chuck Norris jokes.</p>
+
+  <p class="question">Cite the Website where you found it:</p>
+  <p>Found through the Public APIs resource:
+    <a href="https://github.com/public-apis/public-apis">
+     https://github.com/public-apis/public-apis</a>
+  </p>
+  <p>The API itself is located here:
+    <a href="https://api.chucknorris.io/#!">
+      https://api.chucknorris.io/#!</a>
+  </p>
+
+  <p class="question">Describe the options you used for the API request:</p>
+  <p>In this website, I use two different requests to access two
+     different pieces of information. The first returns a joke in JSON format.
+     In the first request, I access a random joke through the key "value" and
+     the Chuck Norris icon through the "icon_url" key. In the second request,
+     I receive an array of the Chuck Norris joke categories. I still use
+     JSON parse in order to parse it into an actual array. After that,
+     I just loop through the array and display the category result.
+  </p>
+
+  <p class="question">Give 2 applications of where this API
+                      would be helpful:</p>
+  <p>1. Could be used on a joke site, especially if one queried Chuck Norris
+        jokes.</p>
+  <p>2. Works as a helpful placeholder to check if AJAX functionality is
+        correct. </p>
+
+  </div>
+
+  <br><br>
+</body>
+</html>
